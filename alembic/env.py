@@ -7,6 +7,7 @@ from core.config_loader import settings
 from core.database import Base
 from user.models import user
 from kot.models import kot
+from products.models import products
 
 from alembic import context
 
