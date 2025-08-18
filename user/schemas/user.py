@@ -6,7 +6,9 @@ class UserBase(BaseModel):
     email: EmailStr
 
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    username: str  # Pole wymagane
+    email: EmailStr
     password: str
 
 

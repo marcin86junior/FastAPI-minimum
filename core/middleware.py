@@ -1,0 +1,14 @@
+from fastapi import Request, HTTPException
+from fastapi.security import HTTPBearer
+from core.security import verify_token
+
+class JWTBearer(HTTPBearer):
+    async def __call__(self, request: Request):
+        credentials = await super().__call__(request)
+        if not credentials:
+            raise HTTPException(status_code=403, detail="Invalid token")
+        token = credentials.credentials
+        payload = verify_token(token)
+        if not payload:
+            raise HTTPException(status_code=403, detail="Invalid token")
+        return payload

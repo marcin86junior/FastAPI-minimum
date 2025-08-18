@@ -19,13 +19,18 @@ ALGORITHM = "HS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 
 
-def authenticate_user(email: str, password: str, db:Session = Depends(get_db)):
-    user = get_user_by_email(db, email)
-    if not user:
-        return False
-    if not verify_password(password, user.password):
-        return False
-    return user
+def authenticate_user(token: str, db: Session = Depends(get_db)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        if email is None:
+            return None
+        user = get_user_by_email(db, email)
+        if user is None:
+            return None
+        return user
+    except InvalidTokenError:
+        return None
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
