@@ -1,4 +1,29 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_SERVER=db
+      - POSTGRESQL_PORT=${POSTGRESQL_PORT}
+      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      - DOMAIN=${DOMAIN}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - BACKEND_CORS_ORIGINS=${BACKEND_CORS_ORIGINS}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    depends_on:
+      - db
+    networks:
+      - docker-fastapi-base
+    volumes:
+      - ./alembic/versions:/app/alembic/versions
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn main:app --host 0.0.0.0 --port 8000"
   db:
     image: bitnami/postgresql:17.4.0
     platform: linux/amd64
@@ -13,6 +38,7 @@ services:
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
     networks:
       - docker-fastapi-base
+
 volumes:
   db-data:
 
