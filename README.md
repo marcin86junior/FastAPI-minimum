@@ -1,75 +1,26 @@
-# Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## SuperTasks - an application for managing a task list with user authentication.
 
-## Setup
+### The project includes:
+- FastAPI
+- SQLAlchemy 2
+- Alembic
+- PostreSQL
+- Nuxt3
+- Docker
+- Type Safe Environment Variables
+- Feature Based Project Structure like Django's
 
-Make sure to install dependencies:
+This is a starter template for creating API's with FastAPI, SQLAlchemy 2, Alembic and Postgresql
 
-```bash
-# npm
-npm install
+The project has env setup. You can view how the config works inside the `/core/config.py` directory, adding new env variables is trivial.
 
-# pnpm
-pnpm install
+The project is also has a feature based architecture setup for you so that you have a clear idea on how to continue building and adding new features.
 
-# yarn
-yarn install
+## How to use this starter
 
-# bun
-bun install
-```
+Docker for backend: (front still not dockerized correctly)
++ docker-compose up --build
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Front:
++ npm run dev
