@@ -39,9 +39,13 @@ class Settings(BaseSettings):
             return f"http://{self.DOMAIN}"
         return f"https://{self.DOMAIN}"
 
+    # BACKEND_CORS_ORIGINS: Annotated[
+    #     list[AnyUrl] | str, BeforeValidator(parse_cors)
+    # ] = Field(default_factory=list)
+
     BACKEND_CORS_ORIGINS: Annotated[
         list[AnyUrl] | str, BeforeValidator(parse_cors)
-    ] = Field(default_factory=list)
+    ] = Field(default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"])
 
     POSTGRESQL_USERNAME: str
     POSTGRESQL_PASSWORD: str
