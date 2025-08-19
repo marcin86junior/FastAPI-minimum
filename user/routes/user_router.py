@@ -44,6 +44,6 @@ def user_delete(user_id: int, db: Session = Depends(get_db)):
     return {"message": "User deleted"}
 
 
-@user_router.post("/", response_model=UserSchema)
-def user_post(user: UserCreate, db:Session = Depends(get_db)):
-    return create_user(db, user)
+# @user_router.post("/", response_model=UserSchema)
+# def user_post(user: UserCreate, db:Session = Depends(get_db)):
+#     return create_user(db, user)

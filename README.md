@@ -1,74 +1,75 @@
-# FastAPI + SQLAlchemy 2 + Alembic + Postgresql
+# Nuxt Minimal Starter
 
-### The project includes:
-- FastAPI
-- SQLAlchemy 2
-- Alembic
-- PostreSQL
-- Type Safe Environment Variables
-- Feature Based Project Structure like Django's
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-This is a starter template for creating API's with FastAPI, SQLAlchemy 2, Alembic and Postgresql
+## Setup
 
-The project has env setup. You can view how the config works inside the `/core/config.py` directory, adding new env variables is trivial.
+Make sure to install dependencies:
 
-The project is also has a feature based architecture setup for you so that you have a clear idea on how to continue building and adding new features.
+```bash
+# npm
+npm install
 
-## How to use this starter
+# pnpm
+pnpm install
 
-Clone the repository:
-```
-git clone https://github.com/Tenacity-Dev/fastapi-sqlalchemy2-alembic-postgresql.git
-```
+# yarn
+yarn install
 
-cd into the repository:
-```
-cd fastapi-sqlalchemy2-alembic-postgresql
+# bun
+bun install
 ```
 
-To make this repository yours:
-```
-rm -rf .git && git init
-git add .
-git commit -m "Initial commit"
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
-Create a virtual environment with python:
-```
-python -m venv .venv
-# or
-python3 -m venv .venv
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
 ```
 
-Activate the virtual environment:
-```
-# For linux or mac
-source .venv/bin/activate
+Locally preview production build:
 
-# For windows
-venv\Scripts\activate
-```
+```bash
+# npm
+npm run preview
 
-Install the requirements:
-```
-pip install -r requirements.txt
-```
+# pnpm
+pnpm preview
 
-Create a .env file and add the required env variables to it (the example of required variables can be seen in .env.local):
-```
-cp .env.local .env
+# yarn
+yarn preview
 
-# Add the required env vars
+# bun
+bun run preview
 ```
 
-(Optional) Run migrations to create initial user:
-```
-alembic upgrade head
-```
-
-You can also delete the one existing migration and do as you please.
-
-Start the local server:
-```
-fastapi dev main.py
-```
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

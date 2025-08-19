@@ -1,30 +1,69 @@
-Technical Workshop: Product Catalog API
+Dzień dobry,
 
-The goal of this workshop is to design and build a simple API for managing a product catalog. The system should support basic product management, tagging, and search functionality with two distinct access levels: Admin and Public.
-## Core Features & Requirements
-1. Product Management (Admin Only)
+w nawiązaniu do rozmowy przesyłam zadanie do wykonania.
 
-Implement full CRUD (Create, Read, Update, Delete) functionality for products. All of these operations should be restricted to authenticated administrators.
-2. Public Product Search
 
-Create a publicly accessible endpoint that allows users to search for products based on the following criteria:
+# Zadanie rekrutacyjne - Full Stack Developer
+Stwórz aplikację do zarządzania listą zadań z autentykacją użytkowników.
 
-    Name: Search by product name.
-    Price: Search by product price.
-    Tags: Search by one or more tags.
-        Important: When multiple tags are provided in a single search query, the API must return only the products that are associated with all of the specified tags (AND logic).
+### Backend (FastAPI)
+- Autoryzacja za pomoca JWT (rejestracja, logowanie)
+- CRUD operacje na zadaniach
+- Endpoints: `/auth/register`, `/auth/login`, `/tasks` (GET, POST, PUT, DELETE)
+- Middleware do weryfikacji tokenów
 
-## Database Schema Design
+### Frontend (Nuxt3)
+Wymagane elementy do sprawdzenia:
 
-A key part of this task is to design a database schema that effectively supports the application's features. Your design should account for the following:
+**Composables:**
+- `useAuth()` - zarządzanie autentykacją
+- `useTasks()` - zarządzanie zadaniami
 
-    A Product entity with attributes for name (cannot contain numbers), a unique sku, price, and a description (max 300 characters).
-    A Tag entity to store tag information.
-    A many-to-many relationship between products and tags, allowing a single product to have multiple tags and a single tag to be applied to many products.
+**Middleware:**
+- `auth.ts` - ochrona tras
+- `guest.ts` - przekierowanie zalogowanych
 
-You should be prepared to explain the tables, columns, and relationships in your proposed schema.
-## Technical Stack & Constraints
+**Komponenty z watch/onMounted:**
+- Lista zadań z automatycznym odświeżaniem
+- Formularz z walidacją w czasie rzeczywistym
+- Licznik zadań
 
-    Language & Framework: The application must be built using Python and the FastAPI framework.
-    Database: You can use either PostgreSQL or SQLite for data persistence.
-    Authentication: For this workshop, a simple mechanism is enough.
+**Strony:**
+- `/` - lista zadań (chroniona)
+- `/login` - logowanie
+- `/register` - rejestracja
+
+## Ważne - Problem do rozwiązania
+
+Przeanalizuj poniższy kod i odpowiedz na pytanie: **Dlaczego ten kod spowoduje hydration error i jak można to naprawić?**
+
+```vue
+<template>
+ <div class="task-counter">
+   <p>Aktualny czas: {{ currentTime }}</p>
+   <p>Zadania: {{ completedTasks }}/{{ totalTasks }}</p>
+   <p>Jesteś online od: {{ onlineTime }}</p>
+ </div>
+</template>
+
+<script setup>
+const currentTime = ref(new Date().toLocaleTimeString())
+const onlineTime = ref(new Date().toLocaleTimeString())
+
+onMounted(() => {
+ setInterval(() => {
+   currentTime.value = new Date().toLocaleTimeString()
+ }, 1000)
+})
+
+const { tasks } = useTasks()
+const completedTasks = computed(() => tasks.value.filter(t => t.completed).length)
+const totalTasks = computed(() => tasks.value.length)
+</script>
+```
+
+## Do oddania
+
+1. **Kod źródłowy** (link do repozytorium GitHub)
+2. **README.md** z instrukcjami uruchomienia
+3. **Odpowiedź na pytanie o hydration error** (w README lub osobnym pliku)

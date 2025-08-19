@@ -22,9 +22,7 @@ services:
     volumes:
       - ./alembic/versions:/app/alembic/versions
     command: >
-      sh -c "alembic revision --autogenerate -m 'Opis migracji' &&
-             alembic upgrade head &&
-             uvicorn main:app --host 0.0.0.0 --port 8000"
+      sh -c "uvicorn main:app --host 0.0.0.0 --port 8000"
   db:
     image: bitnami/postgresql:17.4.0
     platform: linux/amd64
@@ -39,6 +37,17 @@ services:
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
     networks:
       - docker-fastapi-base
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfilefrontend
+    ports:
+      - "3000:3000"
+    networks:
+      - docker-fastapi-base
+    volumes:
+      - ./frontend:/app
 
 volumes:
   db-data:

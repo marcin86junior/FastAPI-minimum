@@ -1,6 +1,10 @@
-from pydantic import BaseModel, Field
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from core.database import Base
 
+class Task(Base):
+    __tablename__ = "tasks"
 
-class Task(BaseModel):
-    title: str = Field(..., max_length=255, description="Tytuł zadania")
-    description: str | None = Field(None, max_length=1024, description="Opcjonalny opis zadania")
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True, nullable=False)
+    description = Column(String, nullable=True)
