@@ -19,6 +19,7 @@ Docker for backend: (front still not dockerized correctly)
 + http://127.0.0.1:8000/docs#/
 
 Frontend:
-+ cd frontend
++ cd frontend2
++ npm install nuxt
 + npm run dev
 + http://localhost:3000/
