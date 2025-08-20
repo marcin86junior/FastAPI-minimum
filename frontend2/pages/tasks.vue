@@ -6,7 +6,7 @@
         <tr>
           <th>ID</th>
           <th>Tytuł</th>
-          <th>Status</th>
+          <th>Opis</th>
           <th>Akcje</th>
         </tr>
       </thead>
@@ -14,9 +14,7 @@
         <tr v-for="task in tasks" :key="task.id">
           <td>{{ task.id }}</td>
           <td>{{ task.title }}</td>
-          <td :class="{ completed: task.completed }">
-            {{ task.completed ? "Ukończone" : "Nieukończone" }}
-          </td>
+          <td>{{ task.description }}</td>
           <td>
             <button @click="toggleTask(task.id)">Zmień status</button>
           </td>
@@ -28,11 +26,18 @@
 </template>
 
 <script setup>
+// Dodanie middleware autoryzacji
+definePageMeta({
+  middleware: ['auth']
+});
+
 import { ref, onMounted } from 'vue';
 import { useRuntimeConfig } from '#app';
+import { useAuth } from '~/composables/useAuth';
 
 const tasks = ref([]);
 const config = useRuntimeConfig();
+const { isAuthenticated } = useAuth();
 
 const fetchTasks = async () => {
   try {
@@ -70,7 +75,10 @@ const toggleTask = async (taskId) => {
 };
 
 onMounted(() => {
-  fetchTasks();
+  // Sprawdź czy użytkownik jest zalogowany
+  if (isAuthenticated.value) {
+    fetchTasks();
+  }
 });
 </script>
 

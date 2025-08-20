@@ -1,7 +1,10 @@
-// frontend/middleware/auth.ts
 export default defineNuxtRouteMiddleware((to, from) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return navigateTo('/login'); // Przekierowanie na stronę logowania
+  // Sprawdź, czy użytkownik jest zalogowany (czy jest token)
+  if (process.client) {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      // Jeśli nie ma tokenu, przekieruj na stronę logowania
+      return navigateTo('/login');
+    }
   }
 });

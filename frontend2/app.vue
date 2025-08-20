@@ -4,8 +4,13 @@
       <h1>Moja aplikacja</h1>
       <nav>
         <button @click="goTo('/')">Strona główna</button>
-        <button @click="goTo('/login')">Logowanie</button>
+        <button v-if="!isAuthenticated" @click="goTo('/login')">Logowanie</button>
         <button @click="goTo('/tasks')">Lista zadań</button>
+
+        <div v-if="isAuthenticated" class="user-info">
+          <span>Zalogowany: {{ username }}</span>
+          <button @click="handleLogout">Wyloguj</button>
+        </div>
       </nav>
     </header>
     <main>
@@ -18,9 +23,25 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '~/composables/useAuth';
+
+const router = useRouter();
+const { isAuthenticated, username, checkAuth, logout } = useAuth();
+
 const goTo = (path) => {
-  window.location.href = path;
+  router.push(path);
 };
+
+const handleLogout = () => {
+  logout();
+  router.push('/');
+};
+
+onMounted(() => {
+  checkAuth();
+});
 </script>
 
 <style>
@@ -35,6 +56,12 @@ header, footer {
   text-align: center;
   padding: 1rem;
 }
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 nav button {
   margin: 0 5px;
   padding: 0.5rem 1rem;
@@ -46,6 +73,14 @@ nav button {
 }
 nav button:hover {
   background-color: #0056b3;
+}
+.user-info {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+.user-info span {
+  margin-right: 10px;
 }
 main {
   min-height: calc(100vh - 200px);

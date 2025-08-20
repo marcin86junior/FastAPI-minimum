@@ -19,11 +19,13 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuth } from '~/composables/useAuth';
 
 const username = ref('');
 const password = ref('');
 const loginError = ref('');
 const router = useRouter();
+const { login } = useAuth();
 
 const handleLogin = async () => {
   try {
@@ -35,7 +37,7 @@ const handleLogin = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem('access_token', data.access_token);
+      login(username.value, data.access_token);
       loginError.value = '';
       router.push('/tasks');
     } else {
@@ -46,3 +48,10 @@ const handleLogin = async () => {
   }
 };
 </script>
+
+<style>
+.error {
+  color: red;
+  margin-top: 1rem;
+}
+</style>
