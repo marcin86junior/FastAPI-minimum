@@ -7,6 +7,7 @@
           <button v-if="!isAuthenticated" @click="goTo('/login')">Logowanie</button>
           <button v-if="!isAuthenticated" @click="goTo('/register')">Rejestracja</button>
           <button v-if="isAuthenticated" @click="goTo('/tasks')">Lista zadań</button>
+          <button v-if="isAuthenticated" @click="goTo('/create_task')">Dodaj zadanie</button>
 
           <div v-if="isAuthenticated" class="user-info">
             <span>Zalogowany: {{ username }}</span>

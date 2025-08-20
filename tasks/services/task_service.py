@@ -15,3 +15,10 @@ def create_task(db: Session, task: TaskCreate):
     db.commit()
     db.refresh(db_task)
     return db_task
+
+def delete_task_by_id(db: Session, task_id: int):
+    task = db.query(Task).filter(Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    db.delete(task)
+    db.commit()

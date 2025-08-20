@@ -16,7 +16,7 @@
           <td>{{ task.title }}</td>
           <td>{{ task.description }}</td>
           <td>
-            <button @click="toggleTask(task.id)">Zmień status</button>
+            <button class="delete-button" @click="deleteTask(task.id)">Usuń</button>
           </td>
         </tr>
       </tbody>
@@ -56,21 +56,25 @@ const fetchTasks = async () => {
   }
 };
 
-const toggleTask = async (taskId) => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/tasks/${taskId}/toggle`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-      },
-    });
-    if (response.ok) {
-      await fetchTasks(); // Odśwież listę zadań
-    } else {
-      console.error('Błąd podczas zmiany statusu zadania.');
+const deleteTask = async (taskId) => {
+  if (confirm('Czy na pewno chcesz usunąć to zadanie?')) {
+    try {
+      const response = await fetch(`${config.public.apiBase}/tasks/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+
+      if (response.ok) {
+        // Odświeżenie listy zadań po usunięciu
+        await fetchTasks();
+      } else {
+        console.error('Błąd podczas usuwania zadania.');
+      }
+    } catch (error) {
+      console.error('Błąd sieci:', error);
     }
-  } catch (error) {
-    console.error('Błąd sieci:', error);
   }
 };
 
@@ -98,5 +102,16 @@ th, td {
 }
 th {
   background-color: #f4f4f4;
+}
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.delete-button:hover {
+  background-color: #d32f2f;
 }
 </style>
