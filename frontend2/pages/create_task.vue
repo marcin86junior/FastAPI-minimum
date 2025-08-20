@@ -44,11 +44,19 @@ const handleCreateTask = async () => {
     createSuccess.value = '';
     isSubmitting.value = true;
 
+    const token = localStorage.getItem('access_token');
+    console.log('Token:', token); // Sprawdź czy token istnieje
+
+    if (!token) {
+      createError.value = 'Brak tokenu autoryzacji. Zaloguj się ponownie.';
+      return;
+    }
+
     const response = await fetch(`${config.public.apiBase}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         title: title.value,
@@ -56,25 +64,17 @@ const handleCreateTask = async () => {
       }),
     });
 
-    if (response.ok) {
-      createSuccess.value = 'Zadanie zostało dodane pomyślnie!';
-      // Resetowanie formularza
-      title.value = '';
-      description.value = '';
+    console.log('Response status:', response.status);
 
-      // Przekierowanie po 2 sekundach
-      setTimeout(() => {
-        router.push('/tasks');
-      }, 2000);
+    if (response.ok) {
+      // reszta kodu bez zmian
     } else {
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       createError.value = data.detail || 'Błąd podczas dodawania zadania.';
+      console.error('Error response:', data);
     }
   } catch (error) {
-    createError.value = 'Błąd połączenia z serwerem.';
-    console.error(error);
-  } finally {
-    isSubmitting.value = false;
+    // reszta kodu bez zmian
   }
 };
 

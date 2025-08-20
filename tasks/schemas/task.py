@@ -16,3 +16,8 @@ class Task(TaskBase):
 
     class Config:
         orm_mode = True
+
+# Nowa klasa do zwracania odpowiedzi
+class TaskResponse(Task):
+    class Config:
+        orm_mode = True
