@@ -16,6 +16,7 @@
 
 Docker for backend: (front still not dockerized correctly)
 + docker-compose up --build
++ odpalić jeszcze raz "docker-compose up --build" jeżeli było to pierwszy raz
 + http://127.0.0.1:8000/docs#/
 
 Frontend:
