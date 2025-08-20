@@ -10,6 +10,7 @@ def create_task(db: Session, task: TaskCreate):
     db_task = Task(
         title=task.title,
         description=task.description,
+        owner_id=1
     )
     db.add(db_task)
     db.commit()

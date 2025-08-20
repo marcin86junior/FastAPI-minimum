@@ -12,6 +12,7 @@ class TaskCreate(TaskBase):
 
 class Task(TaskBase):
     id: int
+    owner_id: int
 
     class Config:
         orm_mode = True

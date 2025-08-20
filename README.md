@@ -23,3 +23,25 @@ Frontend:
 + npm install nuxt
 + npm run dev
 + http://localhost:3000/
+
+## Problem hydration error w komponencie Vue
+
+
+Problem hydration error w komponencie Vue
+Przyczyna błędu hydratacji
+
+Problem z podanym kodem polega na niezgodności między tym, co renderuje serwer (SSR), a tym, co generuje JavaScript po stronie klienta. Główne problemy:  
+
+## Różne wartości czasu: 
+
+currentTime i onlineTime są inicjalizowane z new Date().toLocaleTimeString()
+
+Czas po stronie serwera będzie inny niż czas, gdy kod uruchomi się ponownie w przeglądarce
+
+Powoduje to niezgodność HTML z serwera i klienta
+
+## Dostęp do danych zadań:
+
+Composable useTasks() może zwracać różne dane na serwerze i kliencie
+
+Wartości completedTasks i totalTasks mogą się różnić

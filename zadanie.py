@@ -67,3 +67,4 @@ const totalTasks = computed(() => tasks.value.length)
 1. **Kod źródłowy** (link do repozytorium GitHub)
 2. **README.md** z instrukcjami uruchomienia
 3. **Odpowiedź na pytanie o hydration error** (w README lub osobnym pliku)
+
