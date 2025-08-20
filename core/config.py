@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     DOMAIN: str = 'localhost'
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
     JWT_SECRET_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     @computed_field
     @property

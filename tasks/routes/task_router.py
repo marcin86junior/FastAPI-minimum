@@ -16,9 +16,9 @@ def read_tasks(db: Session = Depends(get_db)):
 def create_new_task(
     task: TaskCreate,
     db: Session = Depends(get_db),
-    # current_user: User = Depends(get_current_active_user)
+    current_user: User = Depends(get_current_active_user)
 ):
-    return create_task(db, task,)# current_user.id)
+    return create_task(db, task, current_user.id)
 
 @tasks_router.delete("/{task_id}", status_code=204)
 def delete_task(task_id: int, db: Session = Depends(get_db)):

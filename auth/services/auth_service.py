@@ -66,3 +66,18 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db:Ses
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
     return current_user
+
+
+def authenticate_user_by_credentials(db: Session, username: str, password: str):
+    # Próba znalezienia użytkownika po emailu
+    user = get_user_by_email(db, username)
+
+    # Jeśli nie znaleziono po emailu, spróbuj po nazwie użytkownika
+    if not user:
+        user = db.query(User).filter(User.username == username).first()
+
+    # Sprawdź hasło jeśli znaleziono użytkownika
+    if not user or not verify_password(password, user.hashed_password):
+        return None
+
+    return user
