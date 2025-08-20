@@ -2,16 +2,17 @@
   <div>
     <header>
       <h1>Moja aplikacja</h1>
-      <nav>
-        <button @click="goTo('/')">Strona główna</button>
-        <button v-if="!isAuthenticated" @click="goTo('/login')">Logowanie</button>
-        <button @click="goTo('/tasks')">Lista zadań</button>
+        <nav>
+          <button @click="goTo('/')">Strona główna</button>
+          <button v-if="!isAuthenticated" @click="goTo('/login')">Logowanie</button>
+          <button v-if="!isAuthenticated" @click="goTo('/register')">Rejestracja</button>
+          <button v-if="isAuthenticated" @click="goTo('/tasks')">Lista zadań</button>
 
-        <div v-if="isAuthenticated" class="user-info">
-          <span>Zalogowany: {{ username }}</span>
-          <button @click="handleLogout">Wyloguj</button>
-        </div>
-      </nav>
+          <div v-if="isAuthenticated" class="user-info">
+            <span>Zalogowany: {{ username }}</span>
+            <button @click="handleLogout">Wyloguj</button>
+          </div>
+        </nav>
     </header>
     <main>
       <NuxtPage />
