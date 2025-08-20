@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>Moja aplikacja</h1>
+      <h1>SuperTask</h1>
         <nav>
           <button @click="goTo('/')">Strona główna</button>
           <button v-if="!isAuthenticated" @click="goTo('/login')">Logowanie</button>

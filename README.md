@@ -1,5 +1,5 @@
 
-## SuperTasks app:
+## SuperTask app:
 - application for managing a task list
 - with user authentication
 
