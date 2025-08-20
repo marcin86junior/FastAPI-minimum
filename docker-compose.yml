@@ -41,7 +41,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: ../Dockerfilefrontend
+      dockerfile: ../Dockerfile-frontend
     ports:
       - "3000:3000"
     networks:
