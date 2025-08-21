@@ -16,7 +16,7 @@
           <td>{{ task.title }}</td>
           <td>{{ task.description }}</td>
           <td>
-            <button class="delete-button" @click="deleteTask(task.id)">Usuń</button>
+            <button class="delete-button" @click="handleDeleteTask(task.id)">Usuń</button>
           </td>
         </tr>
       </tbody>
@@ -31,50 +31,16 @@ definePageMeta({
   middleware: ['auth']
 });
 
-import { ref, onMounted } from 'vue';
-import { useRuntimeConfig } from '#app';
+import { onMounted } from 'vue';
 import { useAuth } from '~/composables/useAuth';
+import { useTasks } from '~/composables/useTasks';
 
-const tasks = ref([]);
-const config = useRuntimeConfig();
 const { isAuthenticated } = useAuth();
+const { tasks, fetchTasks, deleteTask } = useTasks();
 
-const fetchTasks = async () => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/tasks`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-      },
-    });
-    if (response.ok) {
-      tasks.value = await response.json();
-    } else {
-      console.error('Błąd podczas pobierania zadań.');
-    }
-  } catch (error) {
-    console.error('Błąd sieci:', error);
-  }
-};
-
-const deleteTask = async (taskId) => {
+const handleDeleteTask = async (taskId) => {
   if (confirm('Czy na pewno chcesz usunąć to zadanie?')) {
-    try {
-      const response = await fetch(`${config.public.apiBase}/tasks/${taskId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      });
-
-      if (response.ok) {
-        // Odświeżenie listy zadań po usunięciu
-        await fetchTasks();
-      } else {
-        console.error('Błąd podczas usuwania zadania.');
-      }
-    } catch (error) {
-      console.error('Błąd sieci:', error);
-    }
+    await deleteTask(taskId);
   }
 };
 
