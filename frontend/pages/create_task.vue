@@ -1,27 +1,11 @@
 <template>
   <div>
-    <h1>Dodaj nowe zadanie</h1>
-    <form @submit.prevent="handleCreateTask">
-      <div class="form-group">
-        <label for="title">Tytuł:</label>
-        <input id="title" v-model="title" type="text" required />
-      </div>
-      <div class="form-group">
-        <label for="description">Opis:</label>
-        <textarea id="description" v-model="description" rows="4" required></textarea>
-      </div>
-      <div class="form-buttons">
-        <button type="submit" :disabled="isSubmitting">Dodaj zadanie</button>
-        <button type="button" class="cancel-button" @click="goToTasksList">Anuluj</button>
-      </div>
-    </form>
-    <p v-if="createError" class="error">{{ createError }}</p>
-    <p v-if="createSuccess" class="success">{{ createSuccess }}</p>
+    <h1> </h1>
+    <TaskForm />
   </div>
 </template>
 
 <script setup>
-// Dodanie middleware autoryzacji
 definePageMeta({
   middleware: ['auth']
 });

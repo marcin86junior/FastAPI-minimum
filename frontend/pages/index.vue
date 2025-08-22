@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1>Witamy w aplikacji!</h1>
-    <p>To jest strona główna.</p>
+    <h1>Panel zadań</h1>
+    <TaskCounter />
   </div>
 </template>
 
 <script setup>
-// Logika specyficzna dla strony głównej
+definePageMeta({
+  middleware: ['auth']
+});
 </script>

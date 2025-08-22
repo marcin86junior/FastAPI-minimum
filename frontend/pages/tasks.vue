@@ -1,27 +1,6 @@
 <template>
   <div>
-    <h1>Lista zadań</h1>
-    <table v-if="tasks.length > 0" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Tytuł</th>
-          <th>Opis</th>
-          <th>Akcje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="task in tasks" :key="task.id">
-          <td>{{ task.id }}</td>
-          <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
-          <td>
-            <button class="delete-button" @click="handleDeleteTask(task.id)">Usuń</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p v-else>Brak zadań do wyświetlenia.</p>
+    <TaskList />
   </div>
 </template>
 
